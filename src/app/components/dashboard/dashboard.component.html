@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Products</h2>
+    <input type="text" class="form-control w-25" placeholder="Search products..." [(ngModel)]="searchTerm" (input)="filterProducts()">
+    <a class="btn btn-primary" href="/product">Add Product</a>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th (click)="filterProducts()" style="cursor: pointer;">
+          Name
+          <i [ngClass]="{
+            'bi bi-caret-up-fill': sortColumn === 'name' && sortOrder === 'asc',
+            'bi bi-caret-down-fill': sortColumn === 'name' && sortOrder === 'desc'
+          }"></i>
+        </th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProducts">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>{{ product.status | status }}</td>
+        <td class="d-flex gap-3">
+          <button class="btn btn-primary" (click)="editProduct(product)">Edit</button>
+          <button class="btn btn-secondary" (click)="deleteProduct(product.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
